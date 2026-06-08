@@ -30,6 +30,12 @@ pnpm build
 pnpm lint
 ```
 
+部署到服务器子路径 `/yuanmind/` 时使用：
+
+```bash
+VITE_BASE_PATH=/yuanmind/ pnpm build
+```
+
 ## 设计语言
 
 官网必须严格贴合 YuanMind 产品视觉语言：

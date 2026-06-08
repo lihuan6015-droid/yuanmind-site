@@ -26,6 +26,7 @@ import './App.css'
 
 const downloadsRepo = 'https://github.com/lihuan6015-droid/yuanmind-downloads'
 const latestRelease = `${downloadsRepo}/releases/latest`
+const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
 
 type ThemeMode = 'light' | 'dark'
 
@@ -277,7 +278,7 @@ function App() {
     <main>
       <header className="site-nav" aria-label="主导航">
         <a className="brand-mark" href="#top" aria-label="YuanMind 首页">
-          <img src="/brand/logo-yuanmind.svg" alt="" />
+          <img src={assetPath('brand/logo-yuanmind.svg')} alt="" />
           <span>YuanMind</span>
         </a>
         <nav>
@@ -477,7 +478,7 @@ function App() {
 
       <footer className="site-footer">
         <div>
-          <img src="/brand/yuanmind-os-light.svg" alt="" />
+          <img src={assetPath('brand/yuanmind-os-light.svg')} alt="" />
           <p>YuanMind 是本地优先的桌面 AgentOS。官网可私有维护，公开仓库仅用于安装包下载。</p>
         </div>
         <a className="deerflow-signature" href="https://deerflow.tech" target="_blank" rel="noreferrer">
@@ -499,7 +500,7 @@ function ProductWindow() {
       </div>
       <div className="window-body">
         <aside className="window-sidebar">
-          <img src="/brand/logo-yuanmind.svg" alt="" />
+          <img src={assetPath('brand/logo-yuanmind.svg')} alt="" />
           <span className="side-active"><Bot size={15} /> 会话</span>
           <span><Workflow size={15} /> 自动任务</span>
           <span><Sparkles size={15} /> 能力广场</span>
@@ -561,7 +562,7 @@ function CompoundPanel() {
       </div>
 
       <div className="compound-core-panel">
-        <img src="/brand/logo-yuanmind.svg" alt="" />
+        <img src={assetPath('brand/logo-yuanmind.svg')} alt="" />
         <strong>YuanMind</strong>
         <p>待你确认</p>
         <span className="decision-pill">保留这条判断</span>
