@@ -1,0 +1,11 @@
+{
+  "product": "YuanMind",
+  "downloadsRepository": "https://github.com/lihuan6015-droid/yuanmind-downloads",
+  "latestRelease": "https://github.com/lihuan6015-droid/yuanmind-downloads/releases/latest",
+  "assets": {
+    "macos": null,
+    "windows": null,
+    "linux": null
+  },
+  "note": "安装包完成签名、公证和真机验收后，再填入 latest asset 直链。"
+}
