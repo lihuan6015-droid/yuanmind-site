@@ -18,7 +18,6 @@ import {
   ShieldCheck,
   Sparkles,
   Sun,
-  TerminalSquare,
   Workflow,
 } from 'lucide-react'
 import gsap from 'gsap'
@@ -45,69 +44,90 @@ type Feature = {
 
 const journeySteps: JourneyStep[] = [
   {
-    label: '输入',
-    title: '把一次真实任务交给本机',
-    body: '客户需求、会议录音、微信消息、链接和附件进入 YuanMind，先在本地被整理成任务上下文。',
+    label: '安排',
+    title: '一句话把任务交给猿工分身',
+    body: '客户需求、会议纪要、微信消息、链接和附件进入 YuanMind，先在本机整理成可执行的任务现场。',
   },
   {
     label: '装填',
-    title: '自动带上场景能力与企业资产',
-    body: '售前、交付、招聘等场景可装填对应 SOP、Skill 与上下文包，Agent 不再从空白聊天开始。',
+    title: '带上专家团队与企业资产',
+    body: '售前、交付、招聘、运营等场景可装填对应专家团队、SOP、Skill 和企业上下文。',
   },
   {
     label: '执行',
-    title: '桌面 Agent 会话形成可检查的过程',
-    body: '对话、工具、文件、终端、预览和子 Agent 状态在一个 macOS 桌面窗口里收敛。',
+    title: '分身推进，过程可检查',
+    body: '对话、工具、文件、预览、子 Agent 状态在同一个桌面窗口里收敛，长期任务不再像黑盒。',
   },
   {
-    label: '产出',
-    title: '输出可以交付的材料',
-    body: 'HTML 原型、技术架构、客户简报、竞品战卡和行动项成为本地可复查的产物。',
+    label: '决策',
+    title: '关键判断回到人类手里',
+    body: '涉及价格、承诺范围、风险判断时，Agent 暂停等待确认；产物和经验再沉淀回本地。',
   },
 ]
 
 const productSurfaces: Feature[] = [
   {
-    icon: MessageSquare,
-    title: 'Agent 会话',
-    body: '聊天、推理、工具和决策卡收敛在一个工作流里，适合长任务，不只是问答。',
-    details: ['客户资料已读取', '售前场景包已装填', '待确认：生成客户简报'],
-  },
-  {
-    icon: TerminalSquare,
-    title: '右侧工作区',
-    body: '文件树、终端、预览和子 Agent 同屏存在，让执行过程可见、可回到现场。',
-    details: ['预览 HTML 原型', '查看任务文件树', '终端执行本地命令'],
-  },
-  {
-    icon: Sparkles,
-    title: '能力广场',
-    body: '场景 Skill、外部工具和企业能力以可安装、可启用、可审计的方式进入本地 Agent。',
-    details: ['售前专家团队', '企业 SOP 装填', '浏览器 / 文件 / 语音能力'],
-  },
-  {
     icon: FileText,
-    title: '产物管理',
-    body: 'Agent 生成的 HTML、Markdown、源码和链接不散落，统一沉淀为可浏览的产物库。',
-    details: ['客户简报.md', '技术架构.ts', '竞品战卡.html'],
+    title: '明早客户评审前，先把专家团队叫进来',
+    body: '把客户资料、会议纪要和竞品链接交给 YuanMind，售前专家团队会并行推进原型、简报和竞品战卡。',
+    details: ['一键启动售前专家团队', '生成 HTML 原型与客户简报', '人类确认关键取舍'],
   },
-]
-
-const differentiators: Feature[] = [
+  {
+    icon: Workflow,
+    title: '复杂工作不再从 Prompt 开始',
+    body: '能力广场预置不同领域的专家团队和一站式技能，用户选择工作场景，而不是从零理解工具链。',
+    details: ['招聘：JD 拆解与简历初筛', '销售：客户跟进与续约风险', '运营：活动复盘与周报生成'],
+  },
+  {
+    icon: Bot,
+    title: '你的猿工办公室，正在形成',
+    body: 'YuanMind 不只让 Agent 执行任务，也给用户一个可感知的工作伙伴。猿工状态让长期任务不再冷冰冰。',
+    details: ['休息、分析、执行、待决策', '任务推进有轻量反馈', '未来同事分身协作流转'],
+  },
+  {
+    icon: MessageSquare,
+    title: '在微信或 IM 里安排工作，桌面端继续执行',
+    body: '当你不在电脑前，可以通过企业 IM 给自己的猿工分身安排任务；回到桌面时，过程和产物还在同一个本地现场。',
+    details: ['IM 是入口，桌面是现场', '上下文回到本地会话', '记忆沉淀默认等你确认'],
+  },
   {
     icon: Network,
-    title: '连接内部系统',
-    body: '未来可把 CRM、知识库、IM 与企业 SOP 装填进员工本地 Agent，形成最后一公里场景能力。',
-  },
-  {
-    icon: LockKeyhole,
-    title: '本地数据主权',
-    body: 'YuanMind 不把员工原始对话和文件上传到自己的云端。模型、目录和上传边界由用户控制。',
+    title: '企业能力进入本机，但员工不是被监控对象',
+    body: 'OA、CRM、企业知识库和业务系统未来会作为能力包装填进本地 Agent，帮助员工完成真实工作。',
+    details: ['CRM 客户背景自动带入', '交付 SOP 与历史案例装填', '企业只接收结构化事件'],
   },
   {
     icon: Brain,
-    title: '认知资产复利',
-    body: '个人洞察、场景经验和企业方法论可以被召回、校准、复用，而不是每次任务重新开始。',
+    title: '每次判断，都会让下一次更快开始',
+    body: '用户确认过的判断、踩坑、偏好和方法论会变成个人认知资产，让过去的你在未来任务里自然回来。',
+    details: ['召回上次同类客户风险点', '复用你常用的方案结构', '保存前由你确认或改写'],
+  },
+]
+
+const enterpriseStories: Feature[] = [
+  {
+    icon: Network,
+    title: 'OA、CRM、知识库，变成可调用的企业能力',
+    body: '未来的 YuanMind 会把内部系统从“要人去查”变成“Agent 分身可装填、可调用、可回到现场”的能力包。',
+    details: ['销售任务带上 CRM 与历史报价', '交付任务带上 SOP 与案例库', '管理者看到组织级推进事件'],
+  },
+  {
+    icon: MessageSquare,
+    title: '桌面端 + IM，给每个员工一个自然语言入口',
+    body: '用户可以在桌面端或微信、飞书、钉钉等 IM 中安排工作；执行仍围绕本地 Agent 会话展开。',
+    details: ['外出时先让猿工整理材料', '回到电脑继续检查过程', '跨终端上下文保持一致'],
+  },
+  {
+    icon: LockKeyhole,
+    title: '企业获得能力复利，不获得员工私有原文',
+    body: '员工的原始文件、私有对话和个人判断优先留在本机；企业侧接收的是授权后的结构化事件。',
+    details: ['不展示个人原始文件', '不读取员工私有对话', 'CEO / Admin 也不能越权'],
+  },
+  {
+    icon: Brain,
+    title: '人类判断沉淀为资产，不被聊天历史吞掉',
+    body: '每次任务结束后，有价值的判断可回到个人认知资产；被审核的经验再进入组织能力库。',
+    details: ['个人洞察由用户确认', '组织经验进入 Skill / SOP', '下一次任务自动装填回来'],
   },
 ]
 
@@ -185,16 +205,69 @@ function App() {
       })
 
       gsap.to('.showcase-track', {
-        xPercent: -42,
+        xPercent: -58,
         ease: 'none',
         scrollTrigger: {
           trigger: '.surface-showcase',
           start: 'top top',
-          end: '+=1100',
+          end: '+=1500',
           scrub: 0.8,
           pin: true,
         },
       })
+
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: '.compound-panel',
+            start: 'top 76%',
+          },
+        })
+        .from('.compound-chip.personal', {
+          x: -20,
+          opacity: 0,
+          duration: 0.45,
+          stagger: 0.07,
+          ease: 'power2.out',
+        })
+        .from(
+          '.compound-chip.enterprise',
+          {
+            x: 20,
+            opacity: 0,
+            duration: 0.45,
+            stagger: 0.07,
+            ease: 'power2.out',
+          },
+          '-=0.2',
+        )
+        .from(
+          '.compound-core-panel',
+          {
+            scale: 0.94,
+            opacity: 0,
+            duration: 0.55,
+            ease: 'power3.out',
+          },
+          '-=0.1',
+        )
+        .to('.flow-line', {
+          scaleX: 1,
+          opacity: 1,
+          duration: 0.55,
+          stagger: 0.08,
+          ease: 'power2.out',
+        })
+        .from(
+          '.trust-rail',
+          {
+            y: 14,
+            opacity: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+          },
+          '-=0.15',
+        )
     })
 
     return () => ctx.revert()
@@ -208,7 +281,7 @@ function App() {
           <span>YuanMind</span>
         </a>
         <nav>
-          <a href="#story">任务闭环</a>
+          <a href="#story">工作范式</a>
           <a href="#trust">数据主权</a>
           <a href="#download">下载</a>
         </nav>
@@ -230,11 +303,11 @@ function App() {
 
       <section id="top" className="hero-section">
         <div className="hero-copy">
-          <p className="eyebrow">本地优先桌面 AgentOS</p>
+          <p className="eyebrow">AI 时代的企业工作范式</p>
           <h1>YuanMind</h1>
           <p className="hero-lead">
-            把强大的 Agent runtime 变成普通知识工作者真正能用的桌面工作台。
-            连接企业能力，守住本地数据主权，让个人认知资产持续复利。
+            让每个人拥有本地优先的猿工分身，把专家团队、企业知识库和业务系统带进真实工作现场。
+            Agent 自主推进复杂任务，人类保留判断、授权和最终决策。
           </p>
           <div className="hero-actions" aria-label="主要操作">
             <a className="primary-action" href={latestRelease} target="_blank" rel="noreferrer">
@@ -242,12 +315,12 @@ function App() {
               下载内测版
             </a>
             <a className="secondary-action" href="#story">
-              观看任务闭环
+              看猿工如何工作
               <ArrowRight size={18} />
             </a>
           </div>
           <p className="release-note">
-            安装包将通过公开 GitHub Releases 提供下载。源码仓库保持私有。
+            安装包将通过公开 GitHub Releases 分发；产品源码和核心仓库保持私有。
           </p>
         </div>
 
@@ -262,11 +335,12 @@ function App() {
 
       <section id="story" className="section story-section">
         <div className="section-heading" data-reveal>
-          <p className="eyebrow">从输入到产出</p>
-          <h2>一次真实任务，不再从空白聊天开始。</h2>
+          <p className="eyebrow">从安排到决策</p>
+          <h2>一个客户评审，如何被猿工分身接住。</h2>
           <p>
-            YuanMind 的首个叙事场景是售前实时原型生成。它展示的不是一项单点功能，
-            而是桌面 Agent、场景 Skill、企业资产、产物管理和信任边界如何一起工作。
+            周一早上，你把客户需求、会议纪要和竞品链接交给 YuanMind。
+            猿工分身会装填售前专家团队和企业资产，先把方案推进到可检查状态，
+            再把关键判断交还给真实的人。
           </p>
         </div>
         <div className="journey-grid">
@@ -279,13 +353,13 @@ function App() {
           ))}
         </div>
         <div className="workflow-strip" data-reveal>
-          <span>客户资料</span>
+          <span>自然语言安排</span>
           <ArrowRight size={18} />
-          <span>本地 Agent</span>
+          <span>猿工分身执行</span>
           <ArrowRight size={18} />
-          <span>技能与企业资产</span>
+          <span>专家团队装填</span>
           <ArrowRight size={18} />
-          <span>可交付产物</span>
+          <span>人类确认决策</span>
         </div>
       </section>
 
@@ -294,8 +368,8 @@ function App() {
           <p className="eyebrow">真实桌面产品</p>
           <h2>不是 SaaS 套壳，也不是另一个聊天框。</h2>
           <p>
-            它把对话、文件、终端、预览、场景能力和产物管理放回同一个工作现场，
-            让长期任务可以执行、可以检查，也可以在下一次继续接上。
+            它让你把一次客户评审、招聘筛选或周报复盘交给一个可检查、可继续的本地工作现场。
+            功能不再被解释为按钮，而是变成可以直接调用的工作故事。
           </p>
         </div>
         <div className="showcase-viewport">
@@ -317,19 +391,26 @@ function App() {
         </div>
       </section>
 
-      <section className="section differentiator-section">
+      <section className="section enterprise-section">
         <div className="section-heading" data-reveal>
-          <p className="eyebrow">差异化竞争力</p>
-          <h2>我们关心的不是“AI 很强”，而是它能否进入你的真实工作世界。</h2>
+          <p className="eyebrow">企业工作现场</p>
+          <h2>让企业能力进入每个人的猿工分身，而不是停在系统后台。</h2>
+          <p>
+            未来的 YuanMind 会把 OA、CRM、企业知识库、业务系统和 IM 入口连接成可装填的能力。
+            员工用自然语言安排分身工作，分身之间流转问题和实施，人类负责判断与拍板。
+          </p>
         </div>
-        <div className="differentiator-grid">
-          {differentiators.map((item) => {
+        <div className="enterprise-grid">
+          {enterpriseStories.map((item) => {
             const Icon = item.icon
             return (
-              <article className="differentiator glass-card" key={item.title} data-reveal>
+              <article className="enterprise-story glass-card" key={item.title} data-reveal>
                 <Icon size={26} strokeWidth={1.7} />
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
+                <ul>
+                  {item.details?.map((detail) => <li key={detail}>{detail}</li>)}
+                </ul>
               </article>
             )
           })}
@@ -338,11 +419,11 @@ function App() {
 
       <section id="trust" className="section trust-section">
         <div className="trust-copy" data-reveal>
-          <p className="eyebrow">反监控契约</p>
-          <h2>企业获得能力复利，不获得员工私有原文。</h2>
+          <p className="eyebrow">本地数据主权</p>
+          <h2>员工敢把真实思考交给 AI，企业才会得到真正的能力复利。</h2>
           <p>
             YuanMind 的信任边界不是角落里的隐私声明，而是产品架构的一部分。
-            本地分析、用户授权后流动、企业侧只接收结构化事件，三层边界必须清楚可见。
+            原始内容留在本机，授权后才流动，企业只接收结构化组织事件。
           </p>
         </div>
         <div className="boundary-map glass-card" data-reveal>
@@ -355,36 +436,13 @@ function App() {
       </section>
 
       <section className="section compounding-section">
-        <div className="compounding-visual glass-card" data-reveal aria-label="认知资产复利示意">
-          <img className="compounding-art" src="/brand/cognitive-compounding.png" alt="" />
-          <div className="compounding-rings" aria-hidden="true" />
-          <div className="compounding-core">
-            <img src="/brand/logo-yuanmind.svg" alt="" />
-            <span>YuanMind</span>
-          </div>
-          <div className="memory-card card-a">
-            <strong>个人洞察</strong>
-            <span>判断、偏好、踩坑</span>
-          </div>
-          <div className="memory-card card-b">
-            <strong>场景经验</strong>
-            <span>售前、交付、招聘</span>
-          </div>
-          <div className="memory-card card-c">
-            <strong>企业 SOP</strong>
-            <span>方法论与资产装填</span>
-          </div>
-          <div className="memory-card card-d">
-            <strong>校准回环</strong>
-            <span>用户确认后再复用</span>
-          </div>
-        </div>
+        <CompoundPanel />
         <div className="section-heading" data-reveal>
           <p className="eyebrow">双向复利</p>
-          <h2>让过去的判断，被未来的任务自然接回。</h2>
+          <h2>每次任务结束，都不只是多一段聊天记录。</h2>
           <p>
-            一次任务结束后，有价值的经验不应该只留在聊天历史里。
-            YuanMind 希望把个人洞察、企业方法论和场景能力变成可以持续召回、校准和复用的资产。
+            用户确认过的判断回到个人认知资产；企业审核过的经验进入组织能力库。
+            下一次任务开始时，过去的你和团队的最佳实践会一起被装填回来。
           </p>
         </div>
       </section>
@@ -392,11 +450,11 @@ function App() {
       <section id="download" className="section download-section">
         <div className="download-panel glass-card" data-reveal>
           <div>
-            <p className="eyebrow">公开下载，源码私有</p>
-            <h2>安装包将从 GitHub Releases 分发。</h2>
+            <p className="eyebrow">内测版下载</p>
+            <h2>先把猿工分身带回你的电脑。</h2>
             <p>
               当前官网先指向公开下载仓库。等 macOS / Windows 安装包完成签名、公证和真机验收后，
-              我们再把按钮切到对应 latest asset 直链。
+              下载按钮会切到对应 latest asset 直链。
             </p>
           </div>
           <div className="download-actions">
@@ -420,7 +478,7 @@ function App() {
       <footer className="site-footer">
         <div>
           <img src="/brand/yuanmind-os-light.svg" alt="" />
-          <p>YuanMind 是私有源码的本地优先桌面 AgentOS。官网可私有维护，公开仓库仅用于安装包下载。</p>
+          <p>YuanMind 是本地优先的桌面 AgentOS。官网可私有维护，公开仓库仅用于安装包下载。</p>
         </div>
         <a className="deerflow-signature" href="https://deerflow.tech" target="_blank" rel="noreferrer">
           Created By Deerflow
@@ -437,7 +495,7 @@ function ProductWindow() {
         <span className="traffic red" />
         <span className="traffic yellow" />
         <span className="traffic green" />
-        <div className="window-title">YuanMind · 售前原型</div>
+        <div className="window-title">YuanMind · 猿工办公室</div>
       </div>
       <div className="window-body">
         <aside className="window-sidebar">
@@ -450,15 +508,15 @@ function ProductWindow() {
         <section className="window-chat">
           <div className="chat-line assistant">
             <strong>YuanMind</strong>
-            <p>我已读取客户资料，并装填售前场景包。是否生成原型与客户简报？</p>
+            <p>我已读取客户资料，并装填 CRM 背景、售前专家团队和交付 SOP。</p>
           </div>
           <div className="chat-line user">
-            <p>生成一版适合明早评审的方案。</p>
+            <p>先生成一版适合明早评审的方案。</p>
           </div>
           <div className="decision-card">
             <span><Play size={14} /> 正在执行</span>
-            <h4>售前专家团队</h4>
-            <p>设计 Agent、开发 Agent、简报 Agent 已并行启动。</p>
+            <h4>猿工分身已启动</h4>
+            <p>设计、架构、简报和竞品分析正在并行推进；价格承诺会等待你确认。</p>
           </div>
           <div className="composer">输入任务、拖入文件或选择场景能力...</div>
         </section>
@@ -482,6 +540,47 @@ function ProductWindow() {
             <p>竞品战卡.html</p>
           </div>
         </aside>
+      </div>
+    </div>
+  )
+}
+
+function CompoundPanel() {
+  const personalChips = ['客户风险判断', '方案结构偏好', '踩坑记录', '方法论']
+  const enterpriseChips = ['CRM 背景', 'OA 流程', '企业知识库', '场景 SOP']
+
+  return (
+    <div className="compound-panel glass-card" data-reveal aria-label="认知资产双向复利示意">
+      <div className="compound-column personal-side" aria-label="个人认知资产">
+        <span className="compound-label">个人侧</span>
+        {personalChips.map((chip) => (
+          <span className="compound-chip personal" key={chip}>
+            {chip}
+          </span>
+        ))}
+      </div>
+
+      <div className="compound-core-panel">
+        <img src="/brand/logo-yuanmind.svg" alt="" />
+        <strong>YuanMind</strong>
+        <p>待你确认</p>
+        <span className="decision-pill">保留这条判断</span>
+      </div>
+
+      <div className="compound-column enterprise-side" aria-label="企业能力库">
+        <span className="compound-label">组织侧</span>
+        {enterpriseChips.map((chip) => (
+          <span className="compound-chip enterprise" key={chip}>
+            {chip}
+          </span>
+        ))}
+      </div>
+
+      <span className="flow-line flow-in" aria-hidden="true" />
+      <span className="flow-line flow-out" aria-hidden="true" />
+      <div className="trust-rail">
+        <ShieldCheck size={16} />
+        <span>原始内容留在本机 · 授权后才流动 · 企业只接收结构化事件</span>
       </div>
     </div>
   )
