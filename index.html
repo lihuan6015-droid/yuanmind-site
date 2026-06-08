@@ -16,6 +16,22 @@
     />
     <meta property="og:type" content="website" />
     <title>YuanMind · 本地优先桌面 AgentOS</title>
+    <script>
+      (() => {
+        try {
+          const savedTheme = window.localStorage.getItem('yuanmind-theme')
+          const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const theme = savedTheme === 'light' || savedTheme === 'dark'
+            ? savedTheme
+            : systemDark
+              ? 'dark'
+              : 'light'
+          document.documentElement.dataset.theme = theme
+        } catch {
+          document.documentElement.dataset.theme = 'light'
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

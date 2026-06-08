@@ -1,4 +1,4 @@
-import { useEffect, type ComponentType } from 'react'
+import { useEffect, useState, type ComponentType } from 'react'
 import {
   ArrowRight,
   Bot,
@@ -11,11 +11,13 @@ import {
   LockKeyhole,
   MessageSquare,
   MonitorDot,
+  Moon,
   Network,
   PackageOpen,
   Play,
   ShieldCheck,
   Sparkles,
+  Sun,
   TerminalSquare,
   Workflow,
 } from 'lucide-react'
@@ -25,6 +27,8 @@ import './App.css'
 
 const downloadsRepo = 'https://github.com/lihuan6015-droid/yuanmind-downloads'
 const latestRelease = `${downloadsRepo}/releases/latest`
+
+type ThemeMode = 'light' | 'dark'
 
 type JourneyStep = {
   label: string
@@ -36,6 +40,7 @@ type Feature = {
   icon: ComponentType<{ size?: number; strokeWidth?: number }>
   title: string
   body: string
+  details?: string[]
 }
 
 const journeySteps: JourneyStep[] = [
@@ -66,21 +71,25 @@ const productSurfaces: Feature[] = [
     icon: MessageSquare,
     title: 'Agent 会话',
     body: '聊天、推理、工具和决策卡收敛在一个工作流里，适合长任务，不只是问答。',
+    details: ['客户资料已读取', '售前场景包已装填', '待确认：生成客户简报'],
   },
   {
     icon: TerminalSquare,
     title: '右侧工作区',
     body: '文件树、终端、预览和子 Agent 同屏存在，让执行过程可见、可回到现场。',
+    details: ['预览 HTML 原型', '查看任务文件树', '终端执行本地命令'],
   },
   {
     icon: Sparkles,
     title: '能力广场',
     body: '场景 Skill、外部工具和企业能力以可安装、可启用、可审计的方式进入本地 Agent。',
+    details: ['售前专家团队', '企业 SOP 装填', '浏览器 / 文件 / 语音能力'],
   },
   {
     icon: FileText,
     title: '产物管理',
     body: 'Agent 生成的 HTML、Markdown、源码和链接不散落，统一沉淀为可浏览的产物库。',
+    details: ['客户简报.md', '技术架构.ts', '竞品战卡.html'],
   },
 ]
 
@@ -103,6 +112,25 @@ const differentiators: Feature[] = [
 ]
 
 function App() {
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    if (typeof window === 'undefined') {
+      return 'light'
+    }
+    const savedTheme = window.localStorage.getItem('yuanmind-theme')
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  })
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    document
+      .querySelector<HTMLMetaElement>('meta[name="theme-color"]')
+      ?.setAttribute('content', theme === 'dark' ? '#17171A' : '#F4F5F7')
+    window.localStorage.setItem('yuanmind-theme', theme)
+  }, [theme])
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
 
@@ -184,10 +212,20 @@ function App() {
           <a href="#trust">数据主权</a>
           <a href="#download">下载</a>
         </nav>
-        <a className="nav-download" href={latestRelease} target="_blank" rel="noreferrer">
-          <Download size={16} />
-          <span>内测下载</span>
-        </a>
+        <div className="nav-actions">
+          <button
+            className="theme-toggle"
+            type="button"
+            aria-label={theme === 'dark' ? '切换到明亮主题' : '切换到黑暗主题'}
+            onClick={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))}
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+          <a className="nav-download" href={latestRelease} target="_blank" rel="noreferrer">
+            <Download size={16} />
+            <span>内测下载</span>
+          </a>
+        </div>
       </header>
 
       <section id="top" className="hero-section">
@@ -256,8 +294,8 @@ function App() {
           <p className="eyebrow">真实桌面产品</p>
           <h2>不是 SaaS 套壳，也不是另一个聊天框。</h2>
           <p>
-            界面以 macOS 26 Liquid Glass 为基调：玻璃给外壳，正文保持清晰，
-            每一个工作表面都服务于“长期任务可执行、可检查、可回到现场”。
+            它把对话、文件、终端、预览、场景能力和产物管理放回同一个工作现场，
+            让长期任务可以执行、可以检查，也可以在下一次继续接上。
           </p>
         </div>
         <div className="showcase-viewport">
@@ -269,11 +307,9 @@ function App() {
                   <Icon size={28} strokeWidth={1.7} />
                   <h3>{surface.title}</h3>
                   <p>{surface.body}</p>
-                  <div className="surface-preview" aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
+                  <ul className="surface-preview" aria-label={`${surface.title} 示例`}>
+                    {surface.details?.map((detail) => <li key={detail}>{detail}</li>)}
+                  </ul>
                 </article>
               )
             })}
@@ -319,15 +355,29 @@ function App() {
       </section>
 
       <section className="section compounding-section">
-        <div className="compounding-visual glass-card" data-reveal>
-          <div className="orbit-center">
-            <img src="/brand/mascot-yuangong.svg" alt="YuanMind 猿工标识" />
-            <span>认知复利</span>
+        <div className="compounding-visual glass-card" data-reveal aria-label="认知资产复利示意">
+          <img className="compounding-art" src="/brand/cognitive-compounding.png" alt="" />
+          <div className="compounding-rings" aria-hidden="true" />
+          <div className="compounding-core">
+            <img src="/brand/logo-yuanmind.svg" alt="" />
+            <span>YuanMind</span>
           </div>
-          <div className="orbit-item item-a">个人洞察</div>
-          <div className="orbit-item item-b">场景经验</div>
-          <div className="orbit-item item-c">企业 SOP</div>
-          <div className="orbit-item item-d">Agent 回放</div>
+          <div className="memory-card card-a">
+            <strong>个人洞察</strong>
+            <span>判断、偏好、踩坑</span>
+          </div>
+          <div className="memory-card card-b">
+            <strong>场景经验</strong>
+            <span>售前、交付、招聘</span>
+          </div>
+          <div className="memory-card card-c">
+            <strong>企业 SOP</strong>
+            <span>方法论与资产装填</span>
+          </div>
+          <div className="memory-card card-d">
+            <strong>校准回环</strong>
+            <span>用户确认后再复用</span>
+          </div>
         </div>
         <div className="section-heading" data-reveal>
           <p className="eyebrow">双向复利</p>
